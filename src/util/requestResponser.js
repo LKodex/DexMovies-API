@@ -1,4 +1,4 @@
-const responser = (response, resInfo, data) => {
+const responser = (response, resInfo, data = {}) => {
     let defaultResponse = {
         "apiName":process.env.API_NAME,
         "apiVersion":{
@@ -12,7 +12,7 @@ const responser = (response, resInfo, data) => {
         "data":Array.isArray(data) ? data : [data]
     }
 
-    response.status(defaultResponse.status).send(defaultResponse)
+    response.status(defaultResponse.status).type('application/json').send(defaultResponse)
 }
 
 module.exports = responser

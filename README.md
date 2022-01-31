@@ -12,7 +12,7 @@ _Elements_ are understood as _Documents_ of the database like a Moive or a Chara
 + **PUT** - Update informations of a specified element
 + **DELETE** - Delete a specified element
 
-Always using the same endpoint for all operations for the specific element collection. You can also use a query string with **GET** method to retrieve only one element.
+Always using the same endpoint for all operations for the specific element collection. You can also use a query string with **GET** and **DELETE** method to retrieve only one element.
 
 ---
 
