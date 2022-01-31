@@ -95,3 +95,25 @@ DB_PASS=password
 SRV_HOST=localhost
 SRV_PORT=8080
 ```
+
+---
+
+# **Endpoints**
+
+Endpoint | Method | Description
+:--------|:------:|------------
+/characters | **POST** | Create a new character, one per request
+/characters | **GET** | Retrieve all the characters
+/characters?id={id} | **GET** | Retrieve a specific character
+/characters?movie={id} | **GET** |  Retrieve all the characters from a specified movie
+/characters | **PUT** | Edit a existent character (You need to pass the field "id" in the body)
+/characters?id={id} | **DELETE** | Delete an existent character
+
+Endpoint | Method | Description
+:--------|:------:|------------
+/movies | **POST** | Create a new movie, one per request
+/movies | **GET** | Retrieve all the movies
+/movies?id={id} | **GET** | Retrieve all the movies
+/movies | **PUT** | Edit an existent movie (You need to pass the field "id" in the body)
+/movies?id={id} | **DELETE** | Delete an existent character
+
