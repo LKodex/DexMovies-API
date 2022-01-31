@@ -5,7 +5,6 @@ const Movie = require('../database/models/Movie')
 
 router.post('/', async (request, response) => {
     requestLogger(request)
-    console.log(request.body)
     try {
         let newMovie = new Movie(request.body)
         let result = await newMovie.save()
@@ -28,17 +27,20 @@ router.get('/', async (request, response) => {
 router.put('/', async (request, response) => {
     requestLogger(request)
     try {
-        let id = ''
-        if (request.query.id !== undefined){
-            id = request.query.id
-        } else {
-            id = request.body.id !== undefined ? request.body.id : request.body._id
+        // Save the ID of the request
+        let id = request.body.id !== undefined ? request.body.id : request.body._id
+        // Check ifs the ID was included
+        if(id === undefined){
+            requestResponser(response, { statusCode:406, message:"You need to include the field 'id' in the request body."})
+            return
         }
+
+        // The ID is not supposed to be edited so we remove him from body here
         delete request.body._id
         delete request.body.id
-
-        let result = await Movie.updateOne({ _id:id }, request.body)
-        requestResponser(response, { statusCode:200, message:"Successfully updated the data." }, result)
+        await Movie.updateOne({ _id:id }, request.body)
+        let movieEdited =  await Movie.findOne({ _id:id })
+        requestResponser(response, { statusCode:200, message:"Successfully updated the data." }, movieEdited)
     } catch {
         requestResponser(response, { statusCode:500, message:"An error occured while trying to update the data." })
     }
