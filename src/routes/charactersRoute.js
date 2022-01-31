@@ -16,8 +16,15 @@ router.post('/', async (request, response) => {
 
 router.get('/', async (request, response) => {
     requestLogger(request)
+    let result
     try {
-        let result = request.query.id !== undefined ? await Character.findOne({ _id:request.query.id }) : await Character.find()
+        if (request.query.id !== undefined) {
+            result = await Character.findOne({ _id:request.query.id })
+        } else if (request.query.movie !== undefined) {
+            result = await Character.find({ movie:request.query.movie })
+        } else {
+            result = await Character.find()
+        }
         requestResponser(response, { statusCode:200, message:"OK" }, result)
     } catch {
         requestResponser(response, { statusCode:500, message:"An error occured while trying to retrieve the data." })
@@ -27,17 +34,20 @@ router.get('/', async (request, response) => {
 router.put('/', async (request, response) => {
     requestLogger(request)
     try {
-        let id = ''
-        if (request.query.id !== undefined){
-            id = request.query.id
-        } else {
-            id = request.body.id !== undefined ? request.body.id : request.body._id
+        // Save the ID of the request
+        let id = request.body.id !== undefined ? request.body.id : request.body._id
+        // Check ifs the ID was included
+        if(id === undefined){
+            requestResponser(response, { statusCode:406, message:"You need to include the field 'id' in the request body."})
+            return
         }
+
+        // The ID is not supposed to be edited so we remove him from body here
         delete request.body._id
         delete request.body.id
-
-        let result = await Character.updateOne({ _id:id }, request.body)
-        requestResponser(response, { statusCode:200, message:"Successfully updated the data." }, result)
+        await Character.updateOne({ _id:id }, request.body)
+        let characterEdited =  await Character.findOne({ _id:id })
+        requestResponser(response, { statusCode:200, message:"Successfully updated the data." }, characterEdited)
     } catch {
         requestResponser(response, { statusCode:500, message:"An error occured while trying to update the data." })
     }
