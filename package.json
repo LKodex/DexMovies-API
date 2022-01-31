@@ -1,0 +1,27 @@
+{
+  "name": "dexmovies-api",
+  "version": "0.0.0",
+  "description": "A simple API in Node.js for my studies with consuming APIs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LKodex/DexMovies-API.git"
+  },
+  "author": "Kodex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LKodex/DexMovies-API/issues"
+  },
+  "homepage": "https://github.com/LKodex/DexMovies-API#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.8"
+  }
+}
