@@ -5,12 +5,12 @@ const MovieSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    releaseDate: {
-        type: Date,
+    description: {
+        type: String,
         require: true
     },
-    director: {
-        type: Array,
+    releaseDate: {
+        type: Date,
         require: true
     }
 })

@@ -1,8 +1,8 @@
 # **DexMovies API**
 
-    DexMovies API is a RESTful API developed by Lucas 'Kodex' using NodeJS and MongoDB. The DexMovies API was developed with learning in mind. Current API features are documented below.
+DexMovies API is a RESTful API developed by Lucas 'Kodex' using NodeJS and MongoDB. The DexMovies API was developed with learning in mind. Current API features are documented below.
 
-_Elements_ are understood as _Documents_ of the database like a Moive or a Character.
+_Elements_ are understood as _Documents_ of the database like a Movie or a Character.
 
 ---
 
@@ -54,10 +54,8 @@ Always using the same endpoint for all operations for the specific element colle
 ```json
 {
     "title":"Title",
-    "releaseDate":"Timestamp",
-    "director":[{
-        "name":"Name of Director"
-    }]
+    "description":"Description of the movie",
+    "releaseDate":"Timestamp"
 }
 ```
 

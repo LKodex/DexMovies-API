@@ -1,4 +1,5 @@
-const responser = (response, resInfo, data = {}) => {
+const responser = (response, resInfo, data) => {
+    data = data ? data : {}
     let defaultResponse = {
         "apiName":process.env.API_NAME,
         "apiVersion":{
