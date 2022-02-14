@@ -1,10 +1,8 @@
 const router = require("express").Router()
-const requestLogger = require('../util/requestLogger')
 const requestResponser = require('../util/requestResponser')
 const Movie = require('../database/models/Movie')
 
 router.post('/', async (request, response) => {
-    requestLogger(request)
     try {
         let newMovie = new Movie(request.body)
         let result = await newMovie.save()
@@ -15,7 +13,6 @@ router.post('/', async (request, response) => {
 })
 
 router.get('/', async (request, response) => {
-    requestLogger(request)
     try {
         let result = request.query.id !== undefined ? await Movie.findOne({ _id:request.query.id }) : await Movie.find()
         requestResponser(response, { statusCode:200, message:"OK" }, result)
@@ -25,7 +22,6 @@ router.get('/', async (request, response) => {
 })
 
 router.put('/', async (request, response) => {
-    requestLogger(request)
     try {
         // Save the ID of the request
         let id = request.body.id !== undefined ? request.body.id : request.body._id
@@ -47,7 +43,6 @@ router.put('/', async (request, response) => {
 })
 
 router.delete('/', async (request, response) => {
-    requestLogger(request)
     try {
         let result = await Movie.deleteOne({ _id:request.query.id })
         requestResponser(response, { statusCode:200, message:"OK" }, result)

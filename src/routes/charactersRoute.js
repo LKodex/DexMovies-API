@@ -1,10 +1,8 @@
 const router = require("express").Router()
-const requestLogger = require('../util/requestLogger')
 const requestResponser = require('../util/requestResponser')
 const Character = require('../database/models/Character')
 
 router.post('/', async (request, response) => {
-    requestLogger(request)
     try {
         let newCharacter = new Character(request.body)
         let result = await newCharacter.save()
@@ -15,7 +13,6 @@ router.post('/', async (request, response) => {
 })
 
 router.get('/', async (request, response) => {
-    requestLogger(request)
     let result
     try {
         if (request.query.id !== undefined) {
@@ -32,7 +29,6 @@ router.get('/', async (request, response) => {
 })
 
 router.put('/', async (request, response) => {
-    requestLogger(request)
     try {
         // Save the ID of the request
         let id = request.body.id !== undefined ? request.body.id : request.body._id
@@ -54,7 +50,6 @@ router.put('/', async (request, response) => {
 })
 
 router.delete('/', async (request, response) => {
-    requestLogger(request)
     try {
         let result = await Character.deleteOne({ _id:request.query.id })
         requestResponser(response, { statusCode:200, message:"OK" }, result)

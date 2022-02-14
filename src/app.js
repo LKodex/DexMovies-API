@@ -1,29 +1,37 @@
+// Enviroment variables
+process.env.API_MAJOR = 0
+process.env.API_MINOR = 0
+process.env.API_PATCH = 0
 require('dotenv/config')
 
+// Creates the app
 const app = require('express')()
+
+// Import app middlewares
 const bodyParser = require('body-parser')
-const requestLogger = require('./util/requestLogger')
-const requestResponser = require('./util/requestResponser')
+const requestLogger = require('./middlewares/requestLogger')
+const internalErrorHandler = require('./middlewares/internalErrorHandler')
+const unusedEndpointHandler = require('./middlewares/unusedEndpointHandler')
 
+// Apply the middlewares in the app
 app.use(bodyParser.json())
+app.use(requestLogger)
+app.use(internalErrorHandler)
+app.use(unusedEndpointHandler)
 
-// Handle used endpoints
+// Handle endpoints
 require('./routes/moviesRoute')(app)
 require('./routes/charactersRoute')(app)
-
-// Handle internal errors
-app.use((error, request, response, next) => {
-    requestLogger(request)
-    requestResponser(response, { statusCode: 500, message: 'An internal error occurred', authorized: false }, { error: error })
-})
-
-// Handle unused endpoints
-app.use((request, response, next) => {
-    requestLogger(request)
-    requestResponser(response, { statusCode: 404, message: 'Endpoint not found', authorized: false })
-})
 
 // Start app
 app.listen(process.env.SRV_PORT, process.env.SRV_HOST, () => {
     console.log(`Server listening... http://${process.env.SRV_HOST}:${process.env.SRV_PORT}/`)
 })
+
+/*
+F Transformar requestLogger em um middleware
+x Criar Usuários
+x Salvar Hash SHA3-256 da Senha
+x Autenticar usuário e enviar JWT
+x Autorizar usuário por JWT / Criar um middleware de verificação de JWT e autorização
+*/
