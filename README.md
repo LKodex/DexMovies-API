@@ -49,6 +49,16 @@ Always using the same endpoint for all operations for the specific element colle
 
 # **JSON Element Format**
 
+## _Users_
+
+```json
+{
+	"username":"My UTF-8 User",
+	"password":"SHA3-256 hash",
+	"admin":true
+}
+```
+
 ## _Movies_
 
 ```json
@@ -92,11 +102,21 @@ DB_PASS=password
 
 SRV_HOST=localhost
 SRV_PORT=8080
+
+JWT_PRIVATE_KEY=yourSecretKey
 ```
 
 ---
 
 # **Endpoints**
+
+Endpoint | Method | Description
+:--------|:------:|------------
+/users/register | **POST** | Register a new user
+/users/login | **POST** | Authenticate a registered user
+/users | **GET** | Retrieve the list of users (Only for Admin)
+/users | **PUT** | Update the user password
+/users | **DELETE** | Delete the user account
 
 Endpoint | Method | Description
 :--------|:------:|------------
