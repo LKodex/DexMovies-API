@@ -3,15 +3,15 @@ const mongoose = require('../mongoDatabase')
 const MovieSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        require: true
     },
     description: {
         type: String,
-        required: true
+        require: true
     },
     releaseDate: {
         type: Date,
-        required: true
+        require: true
     }
 })
 

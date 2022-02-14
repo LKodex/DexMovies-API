@@ -4,19 +4,21 @@ const { SHA3 } = require('sha3')
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true,
+        require: true,
         unique: true
     },
     password: {
         type: String,
-        required: true,
+        require: true,
+        select: false,
         set: password => {
-            password = new SHA3(256).update(password).digest('hex')
+            return new SHA3(256).update(password).digest('hex')
         }
     },
     admin: {
         type: Boolean,
-        required: true
+        require: true,
+        default: false
     }
 })
 

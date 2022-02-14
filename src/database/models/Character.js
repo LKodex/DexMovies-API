@@ -3,15 +3,15 @@ const mongoose = require('../mongoDatabase')
 const CharacterSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        require: true
     },
     actor: {
         type: String,
-        required: true
+        require: true
     },
     movie: {
         type: mongoose.ObjectId,
-        required: true
+        require: true
     }
 })
 

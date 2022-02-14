@@ -33,12 +33,11 @@ router.put('/', async (request, response) => {
         // Save the ID of the request
         let id = request.body.id !== undefined ? request.body.id : request.body._id
         // Check ifs the ID was included
-        if(id === undefined){
-            requestResponser(response, { statusCode:406, message:"You need to include the field 'id' in the request body."})
-            return
+        if(!id){
+            return requestResponser(response, { statusCode:406, message:"You need to include the field 'id' in the request body."})
         }
 
-        // The ID is not supposed to be edited so we remove him from body here
+        // The ID is not supposed to be edited so we remove it from body here
         delete request.body._id
         delete request.body.id
         await Character.updateOne({ _id:id }, request.body)

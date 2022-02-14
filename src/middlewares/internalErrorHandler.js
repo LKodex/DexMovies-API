@@ -1,7 +1,9 @@
 const requestResponser = require('../util/requestResponser')
 
 const internalError = (error, request, response, next) => {
-    requestResponser(response, { statusCode: 500, message: 'An internal error occurred', authorized: false }, { error: error })
+    if (!request.headersSent) {
+        requestResponser(response, { statusCode: 500, message: 'An internal error occurred', authorized: false }, { error: error })
+    }
     next()
 }
 
